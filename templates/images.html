@@ -1,0 +1,17 @@
+<html>
+  <img id="img">
+  <script>
+    const src = '{{url}}';
+const options = {
+  headers: {'referer': 'https://www.webtoons.com/', 'dnt': '1', 'user-agent': 'Mozilla/5.0 (X11; Linux ppc64le; rv:75.0)Gecko/20100101 Firefox/75.0', 'accept-language': 'en-US,en;q=0.9'},
+  method: "GET"
+};
+
+fetch(src, options)
+.then(res => res.blob())
+.then(blob => {
+  img_Element = document.getElementById("img");
+  imgElement.src = URL.createObjectURL(blob);
+});
+  </script>
+</html>
