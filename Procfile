@@ -1,1 +1,2 @@
-web: python main.py 0.0.0.0:5000
+web: gunicorn main
+web: gunicorn run:app
