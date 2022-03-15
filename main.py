@@ -1,9 +1,27 @@
-from flask import Flask,render_template,request
-import easyjson
-from funcs import Prefabs as p
+import os
+try:
+  from flask import Flask,render_template,request,send_file,make_response
+  import easyjson
+  from funcs import Prefabs as p
+except ImportError:
+  os.system("bash scripts/deps.sh")
 w = p.webtoons
 app = Flask('app')
 
+def render_page(content,theme,ao="",at="",ath="",af=""):
+  # 'active-link'
+  if theme == None:
+    theme = "white"
+  print(f"theme: `{theme}`")
+  return render_template("page.html",content=content,ao=ao,at=at,ath=ath,af=af,theme=theme)
+
+@app.route('/favicon.ico/')
+def favicon():
+  return send_file("static/logo.png")
+
+@app.route('/query/')
+def query():
+  return render_template("search.html",theme=request.cookies.get("theme"))
 @app.route('/viewer/')
 def viewer():
   title = request.args.get("title")
@@ -28,7 +46,7 @@ div img {
   imgs = w.episode(s, ep)
   for obj in imgs:
     html += "\n<div>\n" + w.loadimg(imgs[obj]) + "\n</div>\n"
-  return html
+  return render_page(content=html,theme=request.cookies.get("theme"))
   
 
 @app.route('/search/')
@@ -38,7 +56,7 @@ def search():
   
   if q == None :
     return "specify args"
-  html = """<style>\n /* Font */
+  html = """\n<style>\n /* Font */
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
 
 /* Design */
@@ -49,11 +67,11 @@ def search():
 }
 
 html {
-  background-color: #ecf9ff;
+  background-color: #ffffff;
 }
 
 body {
-  color: #272727;
+  color: #000000;
   font-family: 'Quicksand', serif;
   font-style: normal;
   font-weight: 400;
@@ -191,7 +209,7 @@ img {
       
   html += "\n"
   html += "  </ul>\n</div>"
-  return html
+  return render_page(content=html,theme=request.cookies.get("theme"),at="active-link")
 
 
 
@@ -201,7 +219,86 @@ def preview():
   
   if q == None :
     return "specify args"
-  html = """<style>
+  html = """
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #FFC0CB;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+</style>
+  \n<style>
 body, html {
   height: 100%;
   margin: 0;
@@ -218,11 +315,11 @@ body, html {
 }
 
 html {
-  background-color: #ecf9ff;
+  background-color: #fffff;
 }
 
 body {
-  color: #272727;
+  color: #000000;
   font-family: 'Quicksand', serif;
   font-style: normal;
   font-weight: 400;
@@ -342,14 +439,16 @@ img {
   outline: 0;
   display: inline-block;
   padding: 10px 25px;
-  color: black;
-  background-color: #ddd;
+  color: white;
+  background-color: #FFC0CB;
+  opacity: 0.3;
   text-align: center;
   cursor: pointer;
 }
 
 .hero-text button:hover {
   background-color: #555;
+  opacity: 0.9
   color: white;
 }
   .wrapper {
@@ -435,11 +534,135 @@ img {
       
   html += "\n"
   html += "  </ul>\n</div>"
-  return html
+  return render_page(content=html,theme=request.cookies.get("theme"))
+
+@app.route("/set/")
+def set():
+  
+  theme = request.args.get("bg")
+  resp = make_response(render_template('loading.html',theme=theme,r="https://yukiyo.ehnryu.repl.co/settings"))
+  resp.set_cookie('theme', theme)
+  return resp
+
+@app.route("/settings/")
+def settings():
+  html = """
+  <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+ 
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<div class="container">
+  <form action="/set">
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">Color background</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="bg" name="bg" placeholder="Eg. 'blue','black'">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+      </div>
+      <div class="col-75">
+        
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Save">
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
+"""
+  return render_page(content=html,theme=request.cookies.get("theme"),af="active-link")
 
 @app.route("/")
 def index():
   return render_template("index.html")
+
+@app.route('/loading/')
+def loading():
+  r = request.args.get("r")
+  if r == None:
+    r = "https://yukiyo.ehnryu.repl.co"
+  else:
+    r = r.replace("^","?")
+    r = r.replace("@","&")
+    r = f"https://yukiyo.ehnryu.repl.co/{r}"
+  return render_template("loading.html",theme=request.cookies.get("theme"),r=r)
+
 
 app.run(host='0.0.0.0', port=8080,debug=True)
 # try simple render with webtoons.com

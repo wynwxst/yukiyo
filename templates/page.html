@@ -85,7 +85,7 @@ form.example::after {
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="https://yukiyo.ehnryu.repl.co" class="nav__link active-link">
+                            <a href="https://yukiyo.ehnryu.repl.co" class="nav__link {{ao}}">
                                 <i class='bx bx-home-alt nav__icon'></i>
                                 <span class="nav__name">Home</span>
                             </a>
@@ -93,7 +93,7 @@ form.example::after {
                         
                         <li class="nav__item">
                             <a href="https://yukiyo.ehnryu.repl.co/query/" class="nav__link">
-                                <i class='bx bx-search nav__icon'></i>
+                                <i class='bx bx-search nav__icon {{at}}'></i>
                                 <span class="nav__name">Search</span>
                             </a>
                         </li>
@@ -101,12 +101,12 @@ form.example::after {
                         <li class="nav__item">
                             <a href="https://yukiyo.ehnryu.repl.co/subscribed" class="nav__link">
                                 <i class='bx bx-user nav__icon'></i>
-                                <span class="nav__name">My List</span>
+                                <span class="nav__name {{ath}}">My List</span>
                             </a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="https://yukiyo.ehnryu.repl.co/settings" class="nav__link">
+                            <a href="https://yukiyo.ehnryu.repl.co/settings" class="nav__link {{af}}">
                                 <i class='bx bx-cog nav__icon'></i>
                                 <span class="nav__name">Settings</span>
                             </a>
@@ -121,28 +121,19 @@ form.example::after {
         <main>
             <!--=============== HOME ===============-->
             <section class="container section section__height" id="home">
-                <h2 class="section__title">Home</h2>
+                {{content | safe}}
             </section>
-
-            <!--=============== ABOUT ===============-->
-            <section class="container section section__height" id="about">
-                <h2 class="section__title">About</h2>
+            <div>
+            <section class="container section section__height" id="c">
+                
             </section>
-
-            <!--=============== SKILLS ===============-->
-            <section class="container section section__height" id="skills">
-                <h2 class="section__title">Skills</h2>
+              </div>
             </section>
-
-            <!--=============== PORTFOLIO ===============-->
-            <section class="container section section__height" id="portfolio">
-                <h2 class="section__title">Portfolio</h2>
+            <div>
+            <section class="container section section__height" id="c">
+                
             </section>
-
-            <!--=============== CONTACTME ===============-->
-            <section class="container section section__height" id="contactme">
-                <h2 class="section__title">Contactme</h2>
-            </section>
+              </div>
         </main>
         
 
