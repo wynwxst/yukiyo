@@ -651,7 +651,7 @@ input[type=submit]:hover {
 </html>
 """
   return render_page(content=html,theme=request.cookies.get("theme"),af="active-link")
-
+#index
 @app.route("/")
 def index():
   return render_template("index.html")
