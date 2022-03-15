@@ -1,2 +1,1 @@
-export FLASK_APP=main
-web: flask run
+web: gunicorn main:app wsgi
