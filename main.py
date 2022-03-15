@@ -11,6 +11,7 @@ except ImportError:
   from funcs import Prefabs as p
 w = p.webtoons
 app = Flask('app')
+app.config["url"] = "https://quiet-taiga-00976.herokuapp.com/"
 
 def render_page(content,theme,ao="",at="",ath="",af="",next="",title="",back="",t="page"):
   # 'active-link'
@@ -192,7 +193,7 @@ img {
         <div class="card_content">
           <h2 class="card_title">{name}</h2>
           <p class="card_text">By {author}</p>
-          <a href="https://yukiyo.ehnryu.repl.co/preview?title={title}">
+          <a href="https://quiet-taiga-00976.herokuapp.com//preview?title={title}">
           <button class="btn card_btn">Read</button>
           </a>
         </div>
@@ -491,7 +492,7 @@ img {
   <div class="hero-image">
   <div class="hero-text">
     <h1 style="font-size:50px">{name}</h1>
-    <a href='https://yukiyo.ehnryu.repl.co/viewer?title={title}&ep=1'>
+    <a href='https://quiet-taiga-00976.herokuapp.com//viewer?title={title}&ep=1'>
     <button class="btn card_btn">Episode 1</button>
     </a>
     <p> {description} </p>
@@ -507,7 +508,7 @@ img {
 
         <div class="card_content">
           <p class="card_text">{number}</p>
-          <a href="https://yukiyo.ehnryu.repl.co/viewer?title={title}&ep={ep}">
+          <a href="https://quiet-taiga-00976.herokuapp.com//viewer?title={title}&ep={ep}">
           <button class="btn card_btn">Read</button>
           </a>
         </div>
@@ -544,7 +545,7 @@ img {
 def set():
 
   theme = request.args.get("bg")
-  resp = make_response(render_template('loading.html',theme=theme,r="https://yukiyo.ehnryu.repl.co/settings"))
+  resp = make_response(render_template('loading.html',theme=theme,r="https://quiet-taiga-00976.herokuapp.com//settings"))
   resp.set_cookie('theme', theme)
   return resp
 
@@ -660,11 +661,11 @@ def index():
 def loading():
   r = request.args.get("r")
   if r == None:
-    r = "https://yukiyo.ehnryu.repl.co"
+    r = "https://quiet-taiga-00976.herokuapp.com/"
   else:
     r = r.replace("^","?")
     r = r.replace("|","&")
-    r = f"https://yukiyo.ehnryu.repl.co/{r}"
+    r = f"https://quiet-taiga-00976.herokuapp.com//{r}"
   return render_template("loading.html",theme=request.cookies.get("theme"),r=r)
 
 if __name__ == "__main__":
