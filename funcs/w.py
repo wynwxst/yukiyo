@@ -41,6 +41,33 @@ class W:
        r.headers['Content-Type'] + ";" +
        "base64," + base64.b64encode(r.content).decode("utf-8"))
     return f"<img src='{uri}' width='{w}' height='{h}'/>"
+  def viewimg(self,image_obj):
+    i = image_obj
+
+    url = i['url']
+    h = i["h"]
+    w = i["w"]
+    if os.name == 'nt':
+        user_agent = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+                      'AppleWebKit/537.36 (KHTML, like Gecko)' 
+                      'Chrome/92.0.4515.107 Safari/537.36')
+    else:
+        user_agent = ('Mozilla/5.0 (X11; Linux ppc64le; rv:75.0)' 
+                      'Gecko/20100101 Firefox/75.0')
+    headers = {
+        'dnt': '1',
+        'user-agent': user_agent,
+        'accept-language': 'en-US,en;q=0.9',
+    }
+    image_headers = {
+        'referer': 'https://www.webtoons.com/',
+        **headers
+    }
+    r = requests.request("GET",url=url,headers=image_headers)
+    uri = ("data:" + 
+       r.headers['Content-Type'] + ";" +
+       "base64," + base64.b64encode(r.content).decode("utf-8"))
+    return f"<img src='{uri}' width='{w}' height='{h}' class='centeral'/>"
   def search(self,q):
     su = ""
     su = self.query.replace("{q}",q)

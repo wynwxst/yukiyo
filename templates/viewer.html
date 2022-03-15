@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+body {
+
+  font-family: Arial;
+  background: #000000;
+  color: white;
+  overflow-y: scroll;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #FFC0CB;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+</head>
+<body>
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== BOXICONS ===============-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="https://yukiyo.ehnryu.repl.co/static/menu/assets/css/styles.css">
+
+        <title>Yukiyo</title>
+    </head>
+    <body>
+        <!--=============== HEADER ===============-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="https://yukiyo.ehnryu.repl.co" class="nav__logo">Yukiyo</a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="https://yukiyo.ehnryu.repl.co" class="nav__link {{ao}}">
+                                <i class='bx bx-home-alt nav__icon'></i>
+                                <span class="nav__name">Home</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav__item">
+                            <a href="https://yukiyo.ehnryu.repl.co/viewer?title={{title}}&ep={{back}}" class="nav__link">
+                                <i class='bx bx-arrow-to-left nav__icon {{at}}'></i>
+                                <span class="nav__name">Back</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="https://yukiyo.ehnryu.repl.co/preview?title={{title}}" class="nav__link">
+                                <i class='bx bx-book nav__icon'></i>
+                                <span class="nav__name {{ath}}">Preview</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="https://yukiyo.ehnryu.repl.co/viewer?title={{title}}&ep={{next}}" class="nav__link {{af}}">
+                                <i class='bx bx-arrow-to-right nav__icon'></i>
+                                <span class="nav__name">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <img src="https://yukiyo.ehnryu.repl.co/static/logo.png" alt="" class="nav__img">
+            </nav>
+        </header>
+
+        <main>
+            <!--=============== HOME ===============-->
+            <section class="container section section__height" id="home">
+                {{content | safe}}
+            </section>
+            <div>
+            <section class="container section section__height" id="c">
+                
+            </section>
+              </div>
+            </section>
+            <div>
+            <section class="container section section__height" id="c">
+                
+            </section>
+              </div>
+        </main>
+        
+
+        <!--=============== MAIN JS ===============-->
+        <script src="https://yukiyo.ehnryu.repl.co/static/menu/assets/js/main.js"></script>
+    </body>
+<script>
+  document.body.style.backgroundColor = "{{theme}}";
+</script>
+</html>

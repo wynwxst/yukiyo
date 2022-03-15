@@ -5,15 +5,18 @@ try:
   from funcs import Prefabs as p
 except ImportError:
   os.system("bash scripts/deps.sh")
+  from flask import Flask,render_template,request,send_file,make_response
+  import easyjson
+  from funcs import Prefabs as p
 w = p.webtoons
 app = Flask('app')
 
-def render_page(content,theme,ao="",at="",ath="",af=""):
+def render_page(content,theme,ao="",at="",ath="",af="",next="",title="",back="",t="page"):
   # 'active-link'
   if theme == None:
     theme = "white"
   print(f"theme: `{theme}`")
-  return render_template("page.html",content=content,ao=ao,at=at,ath=ath,af=af,theme=theme)
+  return render_template(f"{t}.html",content=content,ao=ao,at=at,ath=ath,af=af,theme=theme,next=next,title=title,back=back)
 
 @app.route('/favicon.ico/')
 def favicon():
@@ -30,13 +33,13 @@ def viewer():
     return "specify args"
   html = """\n\n<title>""" +  title + """</title>\n
   <style>
-  div {
+  .view_div {
 
   line-height: 300px; 
   text-align: center;    
 }
 
-div img {
+.centeral {
   vertical-align: middle;
 }
   </style>
@@ -45,8 +48,8 @@ div img {
   s = w.series(title)
   imgs = w.episode(s, ep)
   for obj in imgs:
-    html += "\n<div>\n" + w.loadimg(imgs[obj]) + "\n</div>\n"
-  return render_page(content=html,theme=request.cookies.get("theme"))
+    html += "\n<div class='view_div'>\n" + w.viewimg(imgs[obj]) + "\n</div>\n"
+  return render_page(content=html,theme=request.cookies.get("theme"),title=title,next=str(int(ep)+1),back=str(int(ep)-1),t="viewer")
   
 
 @app.route('/search/')
@@ -659,7 +662,7 @@ def loading():
     r = "https://yukiyo.ehnryu.repl.co"
   else:
     r = r.replace("^","?")
-    r = r.replace("@","&")
+    r = r.replace("|","&")
     r = f"https://yukiyo.ehnryu.repl.co/{r}"
   return render_template("loading.html",theme=request.cookies.get("theme"),r=r)
 

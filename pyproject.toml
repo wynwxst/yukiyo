@@ -4,7 +4,11 @@ version = "0.1.0"
 description = ""
 authors = ["Ehnryu <<>>"]
 
-
+[tool.poetry.dependencies]
+python = "^3.8"
+bs4 = "^0.0.1"
+Flask = "^2.0.3"
+options = "^1.4.10"
 
 [tool.poetry.dev-dependencies]
 
