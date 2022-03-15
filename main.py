@@ -36,28 +36,28 @@ def viewer():
   <style>
   .view_div {
 
-  line-height: 300px; 
-  text-align: center;    
+  line-height: 300px;
+  text-align: center;
 }
 
 .centeral {
   vertical-align: middle;
 }
   </style>
-  
+
   """
   s = w.series(title)
   imgs = w.episode(s, ep)
   for obj in imgs:
     html += "\n<div class='view_div'>\n" + w.viewimg(imgs[obj]) + "\n</div>\n"
   return render_page(content=html,theme=request.cookies.get("theme"),title=title,next=str(int(ep)+1),back=str(int(ep)-1),t="viewer")
-  
+
 
 @app.route('/search/')
 def search():
   q = request.args.get("q")
   q = q.replace("%20"," ")
-  
+
   if q == None :
     return "specify args"
   html = """\n<style>\n /* Font */
@@ -170,7 +170,7 @@ img {
   color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.5;
-  margin-bottom: 1.25rem;    
+  margin-bottom: 1.25rem;
   font-weight: 400;
 }
 .made_by{
@@ -209,8 +209,8 @@ img {
         ic = w.loadimg(r[item][v])
         t = t.replace("{load_img}",ic)
     html += "\n" + t + "\n"
-        
-      
+
+
   html += "\n"
   html += "  </ul>\n</div>"
   return render_page(content=html,theme=request.cookies.get("theme"),at="active-link")
@@ -220,7 +220,7 @@ img {
 @app.route('/preview/')
 def preview():
   q = request.args.get("title")
-  
+
   if q == None :
     return "specify args"
   html = """
@@ -298,7 +298,7 @@ body {
     padding: 14px;
   }
   .topnav input[type=text] {
-    border: 1px solid #ccc;  
+    border: 1px solid #ccc;
   }
 }
 </style>
@@ -418,7 +418,7 @@ img {
   color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.5;
-  margin-bottom: 1.25rem;    
+  margin-bottom: 1.25rem;
   font-weight: 400;
 }
 .made_by{
@@ -475,7 +475,7 @@ img {
 .episode {
   width: 100%;
   background-color: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%)
-  color: white; 
+  color: white;
 
 }
 
@@ -513,12 +513,12 @@ img {
         </div>
       </div>
     </li>\n
-  
+
   \n
   """
   r = w.series(q)
   title = r["title"]
-  
+
   for item in r:
     if item not in ["icon","banner"]:
       html = html.replace("{" + item + "}",str(r[item]))
@@ -532,17 +532,17 @@ img {
     t = t.replace("{ep}",str(eps))
     t = t.replace("{number}","Episode " + str(eps))
     eps -= 1
-    
+
     html += "\n" + t + "\n"
-        
-      
+
+
   html += "\n"
   html += "  </ul>\n</div>"
   return render_page(content=html,theme=request.cookies.get("theme"))
 
 @app.route("/set/")
 def set():
-  
+
   theme = request.args.get("bg")
   resp = make_response(render_template('loading.html',theme=theme,r="https://yukiyo.ehnryu.repl.co/settings"))
   resp.set_cookie('theme', theme)
@@ -589,7 +589,7 @@ input[type=submit]:hover {
 
 .container {
   border-radius: 5px;
- 
+
   padding: 20px;
 }
 
@@ -638,7 +638,7 @@ input[type=submit]:hover {
       <div class="col-25">
       </div>
       <div class="col-75">
-        
+
       </div>
     </div>
     <div class="row">
@@ -667,6 +667,6 @@ def loading():
     r = f"https://yukiyo.ehnryu.repl.co/{r}"
   return render_template("loading.html",theme=request.cookies.get("theme"),r=r)
 
-
-app.run(host='0.0.0.0', port=8080)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8080)
 # try simple render with webtoons.com
