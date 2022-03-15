@@ -11,6 +11,7 @@ except ImportError:
   from funcs import Prefabs as p
 w = p.webtoons
 app = Flask('app')
+app.config["url"] = "https://quiet-taiga-00976.herokuapp.com/"
 
 def render_page(content,theme,ao="",at="",ath="",af="",next="",title="",back="",t="page"):
   # 'active-link'
