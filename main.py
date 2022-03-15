@@ -668,5 +668,5 @@ def loading():
   return render_template("loading.html",theme=request.cookies.get("theme"),r=r)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8080)
 # try simple render with webtoons.com
