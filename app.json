@@ -1,0 +1,22 @@
+{
+  "name": "Yukiyo",
+  "description": "Yukiyo",
+  "image": "heroku/python",
+  "repository": "https://github.com/n30nyx/yukiyo",
+  "keywords": ["python", "flask" ],
+  "addons": [],
+  "env": {
+    "SECRET_KEY": {
+      "description": "legit nothing",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
