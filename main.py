@@ -519,6 +519,18 @@ img {
 
   \n
   """
+  r_temp_clear = """
+    <li class="cards_item">
+      <div class="card">
+
+        <div class="card_content">
+
+        </div>
+      </div>
+    </li>\n
+
+  \n
+  """  
   r = w.series(q)
   title = r["title"]
 
@@ -537,7 +549,9 @@ img {
     eps -= 1
 
     html += "\n" + t + "\n"
-
+  for i in range(3):
+    x = r_temp_clear
+    html += "\n" + x + "\n"
 
   html += "\n"
   html += "  </ul>\n</div>"
