@@ -661,13 +661,14 @@ def index():
 
 @app.route('/loading/')
 def loading():
+  url = app.config["url"]
   r = request.args.get("r")
   if r == None:
-    app.config["url"]
+    r = url
   else:
     r = r.replace("^","?")
     r = r.replace("|","&")
-    r = app.config["url"] + "/" + r"
+    r =  url + "/" + r
   return render_template("loading.html",theme=request.cookies.get("theme"),r=r)
 
 if __name__ == "__main__":
