@@ -13,13 +13,13 @@ except ImportError:
   from funcs import Prefabs as p
 w = p.webtoons
 app = Flask('app')
-app.config["url"] = "https://yukiyo.ehnryu.repl.co/"
+app.config["url"] = "https://yukiyo.ehnryu.repl.co"
 
 def render_page(content,theme,ao="",at="",ath="",af="",next="",title="",back="",t="page"):
   # 'active-link'
   if theme == None:
     theme = "white"
-  url = app.config["url"]
+  url = app.config["url"] + "/"
   return render_template(f"{t}.html",content=content,ao=ao,at=at,ath=ath,af=af,theme=theme,next=next,title=title,back=back,url=url)
 
 @app.route('/favicon.ico/')
