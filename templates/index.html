@@ -72,7 +72,7 @@ form.example::after {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
         <!--=============== CSS ===============-->
-        <link rel="stylesheet" href="https://yukiyo.ehnryu.repl.co/static/menu/assets/css/styles.css">
+        <link rel="stylesheet" href="{{url}}static/menu/assets/css/styles.css">
 
         <title>Yukiyo</title>
     </head>
@@ -90,23 +90,23 @@ form.example::after {
                                 <span class="nav__name">Home</span>
                             </a>
                         </li>
-                        
+
                         <li class="nav__item">
-                            <a href="https://yukiyo.ehnryu.repl.co/query/" class="nav__link">
+                            <a href="{{url}}query/" class="nav__link">
                                 <i class='bx bx-search nav__icon'></i>
                                 <span class="nav__name">Search</span>
                             </a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="https://yukiyo.ehnryu.repl.co/subscribed" class="nav__link">
+                            <a href="{{url}}subscribed" class="nav__link">
                                 <i class='bx bx-user nav__icon'></i>
                                 <span class="nav__name">My List</span>
                             </a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="https://yukiyo.ehnryu.repl.co/settings" class="nav__link">
+                            <a href="{{url}}settings" class="nav__link">
                                 <i class='bx bx-cog nav__icon'></i>
                                 <span class="nav__name">Settings</span>
                             </a>
@@ -114,7 +114,7 @@ form.example::after {
                     </ul>
                 </div>
 
-                <img src="https://yukiyo.ehnryu.repl.co/static/logo.png" alt="" class="nav__img">
+                <img src="{{url}}static/logo.png" alt="" class="nav__img">
             </nav>
         </header>
 
@@ -144,10 +144,10 @@ form.example::after {
                 <h2 class="section__title">Contactme</h2>
             </section>
         </main>
-        
+
 
         <!--=============== MAIN JS ===============-->
-        <script src="https://yukiyo.ehnryu.repl.co/static/menu/assets/js/main.js"></script>
+        <script src="{{url}}static/menu/assets/js/main.js"></script>
     </body>
 <script>
   document.body.style.backgroundColor = "{{theme}}";

@@ -1,3 +1,5 @@
+### repl/local/normal
+
 import os
 import sys
 try:
@@ -17,8 +19,8 @@ def render_page(content,theme,ao="",at="",ath="",af="",next="",title="",back="",
   # 'active-link'
   if theme == None:
     theme = "white"
-  print(f"theme: `{theme}`")
-  return render_template(f"{t}.html",content=content,ao=ao,at=at,ath=ath,af=af,theme=theme,next=next,title=title,back=back)
+  url = app.config["url"]
+  return render_template(f"{t}.html",content=content,ao=ao,at=at,ath=ath,af=af,theme=theme,next=next,title=title,back=back,url=url)
 
 @app.route('/favicon.ico/')
 def favicon():
@@ -26,7 +28,7 @@ def favicon():
 
 @app.route('/query/')
 def query():
-  return render_template("search.html",theme=request.cookies.get("theme"))
+  return render_template("search.html",theme=request.cookies.get("theme"),url=app.config["url"])
 @app.route('/viewer/')
 def viewer():
   title = request.args.get("title")
@@ -193,7 +195,7 @@ img {
         <div class="card_content">
           <h2 class="card_title">{name}</h2>
           <p class="card_text">By {author}</p>
-          <a href="https://yukiyo.ehnryu.repl.co/preview?title={title}">
+          <a href=" """ + app.config["url"] + """/preview?title={title}">
           <button class="btn card_btn">Read</button>
           </a>
         </div>
@@ -492,7 +494,7 @@ img {
   <div class="hero-image">
   <div class="hero-text">
     <h1 style="font-size:50px">{name}</h1>
-    <a href='https://yukiyo.ehnryu.repl.co/viewer?title={title}&ep=1'>
+    <a href='""" + app.config["url"] + """/viewer?title={title}&ep=1'>
     <button class="btn card_btn">Episode 1</button>
     </a>
     <p> {description} </p>
@@ -508,7 +510,7 @@ img {
 
         <div class="card_content">
           <p class="card_text">{number}</p>
-          <a href="https://yukiyo.ehnryu.repl.co/viewer?title={title}&ep={ep}">
+          <a href=" """ + app.config["url"] + """/viewer?title={title}&ep={ep}">
           <button class="btn card_btn">Read</button>
           </a>
         </div>
@@ -545,7 +547,7 @@ img {
 def set():
 
   theme = request.args.get("bg")
-  resp = make_response(render_template('loading.html',theme=theme,r="https://yukiyo.ehnryu.repl.co/settings"))
+  resp = make_response(render_template('loading.html',theme=theme,r=app.config["url"] + "/settings"))
   resp.set_cookie('theme', theme)
   return resp
 
@@ -655,17 +657,17 @@ input[type=submit]:hover {
 #index
 @app.route("/")
 def index():
-  return render_template("index.html")
+  return render_template("index.html",url=app.config["url"])
 
 @app.route('/loading/')
 def loading():
   r = request.args.get("r")
   if r == None:
-    r = "https://yukiyo.ehnryu.repl.co"
+    app.config["url"]
   else:
     r = r.replace("^","?")
     r = r.replace("|","&")
-    r = f"https://yukiyo.ehnryu.repl.co/{r}"
+    r = app.config["url"] + "/" + r"
   return render_template("loading.html",theme=request.cookies.get("theme"),r=r)
 
 if __name__ == "__main__":
