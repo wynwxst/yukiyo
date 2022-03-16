@@ -20,6 +20,7 @@ def render_page(content,theme,ao="",at="",ath="",af="",next="",title="",back="",
   if theme == None:
     theme = "white"
   url = app.config["url"] + "/"
+  
   return render_template(f"{t}.html",content=content,ao=ao,at=at,ath=ath,af=af,theme=theme,next=next,title=title,back=back,url=url)
 
 @app.route('/favicon.ico/')
@@ -28,7 +29,7 @@ def favicon():
 
 @app.route('/query/')
 def query():
-  return render_template("search.html",theme=request.cookies.get("theme"),url=app.config["url"])
+  return render_template("search.html",theme=request.cookies.get("theme"),url=app.config["url"] + "/")
 @app.route('/viewer/')
 def viewer():
   title = request.args.get("title")
@@ -671,7 +672,7 @@ input[type=submit]:hover {
 #index
 @app.route("/")
 def index():
-  return render_template("index.html",url=app.config["url"])
+  return render_template("index.html",url=app.config["url"] + "/")
 
 @app.route('/loading/')
 def loading():
